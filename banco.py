@@ -1,24 +1,32 @@
 #banco
-def Deposito(saldo):
-    aux_deposito = float(input('quanto deseja depositar? '))
-    saldo += aux_deposito
-    historico.append(str(aux_deposito))
+def Deposito(saldo, limite_transacoes):
+    if limite_transacoes > 0:
+        aux_deposito = float(input('quanto deseja depositar? '))
+        saldo += aux_deposito
+        historico.append(str(aux_deposito))
+        limite_transacoes -= 1
+    else:
+        print("Voce já atingiu o limite de transações diario")
 
-    return saldo
+    return saldo, limite_transacoes
 
-def Saque(limite_saque, saldo):
-    if limite_saque > 0:
+def Saque(limite_saque, saldo, limite_transacoes):
+    if limite_saque > 0 and limite_transacoes >0: 
         aux_saque = float(input('quanto deseja retirar? '))
         if 500 >= aux_saque > 0:
             saldo -= aux_saque
             historico.append(f'-{str(round(aux_saque,2))}')
             limite_saque -= 1
+            limite_transacoes -= 1
         else:
             print('vc digitou um valor maior que o limite de 500 ou um valor invalido.')
     else:
-        print("Voce já atingiu o limite de saque diario")
+        if limite_saque == 0:
+            print("Voce já atingiu o limite de transações diarias")
+        else:
+            print("Voce já atingiu o limite de saque diario")
 
-    return limite_saque, saldo
+    return limite_saque, saldo, limite_transacoes
 
 def Extrato():
     if historico == []:
@@ -31,6 +39,7 @@ saldo = 0
 historico = []
 sair = False
 limite_saque = 3
+limite_transacoes = 10
 
 # Menu
 while sair == False:
