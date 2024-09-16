@@ -122,19 +122,19 @@ def main():
         if opcao == '1':
             cadastrar_usuario(usuarios)
 
-        if opcao == '2': 
+        elif opcao == '2': 
             conta = criar_conta_corrente(AGENCIA, usuarios, numero_conta)
 
             if conta:
                 contas.append(conta)
                 numero_conta += 1
 
-        if opcao == '3': 
+        elif opcao == '3': 
             listar_contas(contas)
 
 
         #passando os argumentos de modo posicional
-        if opcao == '4':
+        elif opcao == '4':
             valor_escolhido = float(input('quanto sacar depositar? '))
             saldo, limite_transacoes, historico = Deposito(saldo, limite_transacoes, historico, valor_escolhido)
 
